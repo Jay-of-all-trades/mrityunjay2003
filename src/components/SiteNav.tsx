@@ -1,6 +1,6 @@
 import { Link, useRouterState } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
-import { Menu, X, Linkedin, GraduationCap } from 'lucide-react'
+import { Menu, X, Linkedin } from 'lucide-react'
 import { profile } from '@/data/profile'
 import { cn } from '@/lib/utils'
 
@@ -74,16 +74,6 @@ export function SiteNav() {
 
         <div className="ml-auto flex items-center gap-1.5 md:ml-2">
           <a
-            href={profile.collegeProfile}
-            target="_blank"
-            rel="noreferrer"
-            title="IITM student profile"
-            className="grid size-9 place-items-center rounded-full border border-rule text-ink-soft transition-colors hover:border-teal hover:bg-teal-wash hover:text-teal"
-          >
-            <GraduationCap size={16} />
-            <span className="sr-only">IITM student profile</span>
-          </a>
-          <a
             href={profile.linkedin}
             target="_blank"
             rel="noreferrer"
@@ -149,16 +139,6 @@ export function SiteFooter() {
                 className="ink-link text-ink-soft hover:text-ink"
               >
                 LinkedIn
-              </a>
-            </li>
-            <li>
-              <a
-                href={profile.collegeProfile}
-                target="_blank"
-                rel="noreferrer"
-                className="ink-link text-ink-soft hover:text-ink"
-              >
-                IITM student profile
               </a>
             </li>
             <li>

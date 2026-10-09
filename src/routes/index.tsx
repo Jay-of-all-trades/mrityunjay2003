@@ -22,7 +22,7 @@ function Home() {
       <Hero />
       <Ticker />
       <ShortVersion />
-      <TranscriptSnapshot />
+      <CourseworkSnapshot />
       <FeaturedWork />
       <Podium />
       <Toolkit />
@@ -264,16 +264,16 @@ function ShortVersion() {
   )
 }
 
-/* --------------------------------------------------- transcript snapshot */
+/* --------------------------------------------------- coursework snapshot */
 
-function TranscriptSnapshot() {
+function CourseworkSnapshot() {
   return (
     <section className="border-y border-rule bg-paper-sunk/50">
       <div className="mx-auto max-w-[1240px] px-5 py-20 lg:px-10 lg:py-24">
         <Reveal>
           <SectionHeading
             eyebrow="Coursework · snapshot"
-            title="Thirty-one entries on the ledger"
+            title="Thirty-one courses, three levels"
             lede="Three levels of the IITM BS programme — foundation, a double diploma, and degree-level specialisation. The full list is filterable and searchable."
           />
         </Reveal>

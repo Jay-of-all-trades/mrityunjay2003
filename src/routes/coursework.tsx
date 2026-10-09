@@ -249,7 +249,7 @@ function Coursework() {
           </div>
         </section>
 
-        {/* -------------------------------------------------- the ledger */}
+        {/* -------------------------------------------------- course list */}
         <section className="mt-12">
           {filtered.length === 0 ? (
             <EmptyState onReset={reset} />

@@ -3,7 +3,6 @@ import { useState } from 'react'
 import {
   AlertCircle,
   Check,
-  GraduationCap,
   Linkedin,
   Loader2,
   MapPin,
@@ -137,26 +136,6 @@ function Contact() {
                   </span>
                   <span className="block font-mono text-[0.66rem] text-ink-faint">
                     mrityunjay-chakraborty-477380229
-                  </span>
-                </span>
-              </a>
-            </li>
-            <li>
-              <a
-                href={profile.collegeProfile}
-                target="_blank"
-                rel="noreferrer"
-                className="sheet sheet-lift flex items-center gap-4 p-4"
-              >
-                <span className="grid size-10 shrink-0 place-items-center rounded-full bg-teal-wash text-teal">
-                  <GraduationCap size={16} />
-                </span>
-                <span>
-                  <span className="block text-[0.96rem] font-medium text-ink">
-                    IITM student profile
-                  </span>
-                  <span className="block font-mono text-[0.66rem] text-ink-faint">
-                    Roll {profile.rollNumber}
                   </span>
                 </span>
               </a>

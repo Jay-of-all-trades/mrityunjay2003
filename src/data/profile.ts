@@ -8,7 +8,6 @@ export const profile = {
   institute: 'Indian Institute of Technology Madras',
   location: 'Assam, India',
   linkedin: 'https://www.linkedin.com/in/mrityunjay-chakraborty-477380229/',
-  collegeProfile: 'https://app.onlinedegree.iitm.ac.in/student/21F3001385',
   photo: '/img/mrityunjay-portrait.jpg',
   avatar: '/img/mrityunjay-avatar.jpg',
   wide: '/img/samvidhan-sadan.jpg',
