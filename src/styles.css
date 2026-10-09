@@ -1,0 +1,231 @@
+@import "tailwindcss" source("../");
+
+/* ---------------------------------------------------------------
+   "Field Notebook" design system
+   Warm paper, ink type, ledger rules, data-science accents.
+   --------------------------------------------------------------- */
+
+@theme {
+  --color-paper: #faf6ee;
+  --color-paper-raised: #fffdf7;
+  --color-paper-sunk: #f2ecdf;
+  --color-ink: #191713;
+  --color-ink-soft: #4a443b;
+  --color-ink-faint: #837a69;
+  --color-rule: #e4dbc9;
+  --color-rule-strong: #cfc3ab;
+
+  --color-teal: #0c5f57;
+  --color-teal-soft: #1c7a6e;
+  --color-teal-wash: #e6f0ed;
+  --color-marigold: #d98c1f;
+  --color-marigold-deep: #9a7020;
+  --color-marigold-wash: #f9f1e0;
+  --color-rust: #b4462c;
+  --color-rust-wash: #faede8;
+  --color-plum: #6a4470;
+  --color-plum-wash: #f2ecf3;
+  --color-harbor: #2e5e8a;
+  --color-harbor-wash: #eaf1f7;
+  --color-wine: #8c3b52;
+  --color-wine-wash: #f9ebef;
+
+  --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
+  --font-sans: "Karla", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+
+  --radius-card: 14px;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 16.5px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: var(--color-marigold);
+  color: #fffdf7;
+}
+
+/* Graph-paper: two grids, the finer one barely there. */
+.paper-grid {
+  background-image:
+    linear-gradient(to right, rgba(140, 121, 86, 0.13) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(140, 121, 86, 0.13) 1px, transparent 1px),
+    linear-gradient(to right, rgba(140, 121, 86, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(140, 121, 86, 0.06) 1px, transparent 1px);
+  background-size: 96px 96px, 96px 96px, 16px 16px, 16px 16px;
+}
+
+/* Fixed, non-scrolling grain. */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.4;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.22'/%3E%3C/svg%3E");
+}
+
+.display {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  font-variation-settings: "SOFT" 30, "WONK" 1;
+  letter-spacing: -0.02em;
+  line-height: 0.98;
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* Sheet: the recurring card surface. Hard offset shadow, no blur soup. */
+.sheet {
+  background: var(--color-paper-raised);
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-card);
+  box-shadow: 3px 3px 0 0 rgba(25, 23, 19, 0.055);
+}
+
+.sheet-lift {
+  transition:
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 220ms ease;
+}
+.sheet-lift:hover {
+  transform: translate(-2px, -3px);
+  box-shadow: 7px 8px 0 0 rgba(25, 23, 19, 0.08);
+  border-color: var(--color-rule-strong);
+}
+
+/* Underline that draws itself on hover. */
+.ink-link {
+  position: relative;
+  display: inline-block;
+}
+.ink-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 1.5px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.ink-link:hover::after {
+  transform: scaleX(1);
+}
+
+/* Highlighter swipe behind a word. */
+.marker {
+  background: linear-gradient(
+    to bottom,
+    transparent 58%,
+    rgba(217, 140, 31, 0.32) 58%,
+    rgba(217, 140, 31, 0.32) 94%,
+    transparent 94%
+  );
+  padding: 0 0.08em;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.rise {
+  animation: rise 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes grow-bar {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+.grow-bar {
+  transform-origin: bottom;
+  animation: grow-bar 820ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes ticker {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.ticker-track {
+  animation: ticker 44s linear infinite;
+}
+.ticker-shell:hover .ticker-track {
+  animation-play-state: paused;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 640ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 640ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal[data-shown="true"] {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .rise,
+  .grow-bar,
+  .ticker-track {
+    animation: none !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .sheet-lift:hover {
+    transform: none;
+  }
+}
+
+*:focus-visible {
+  outline: 2px solid var(--color-teal);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
