@@ -1,17 +1,10 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { ArrowUpRight, Quote, Sparkles } from 'lucide-react'
 import { profile } from '@/data/profile'
-import {
-  courses,
-  gradeCounts,
-  levelBlurb,
-  levels,
-  meanGradePoint,
-} from '@/data/courses'
+import { courses, domainStyle, domains, levelBlurb, levels } from '@/data/courses'
 import { projects } from '@/data/projects'
 import { honors, orgs } from '@/data/journey'
-import { GradeDistribution, StatTile } from '@/components/Grades'
-import { Chip, Eyebrow, SectionHeading } from '@/components/Bits'
+import { Chip, Eyebrow, SectionHeading, StatTile } from '@/components/Bits'
 import { Reveal } from '@/components/Reveal'
 import { img } from '@/lib/img'
 import { trackStyle } from '@/data/projects'
@@ -20,10 +13,7 @@ export const Route = createFileRoute('/')({
   component: Home,
 })
 
-const counts = gradeCounts(courses)
-const graded = courses.filter((c) => c.grade)
-const topGrades = graded.filter((c) => c.grade === 'S' || c.grade === 'A').length
-const mean = meanGradePoint(courses)
+const buildProjects = courses.filter((c) => c.isProject).length
 const featured = projects.filter((p) => p.featured)
 
 function Home() {
@@ -115,7 +105,7 @@ function Hero() {
               to="/coursework"
               className="group inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3 text-[0.95rem] font-medium text-paper transition-transform duration-200 hover:-translate-y-0.5"
             >
-              Open the transcript
+              Browse the coursework
               <ArrowUpRight
                 size={16}
                 className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
@@ -134,8 +124,8 @@ function Hero() {
             style={{ animationDelay: '380ms' }}
           >
             {[
-              ['31', 'courses'],
-              [String(topGrades), 'S / A grades'],
+              [String(courses.length), 'courses'],
+              ['2', 'diplomas'],
               [String(projects.length), 'projects'],
               [String(honors.length), 'invited talks'],
             ].map(([value, label]) => (
@@ -249,9 +239,9 @@ function ShortVersion() {
           <Reveal delay={280}>
             <div className="mt-4 grid gap-3 sm:grid-cols-3">
               <StatTile
-                value={mean ? mean.toFixed(2) : '—'}
-                label="Mean grade point"
-                hint={`across ${graded.length} graded results`}
+                value={String(courses.length)}
+                label="Courses on record"
+                hint={`including ${buildProjects} build projects`}
                 accent="teal"
               />
               <StatTile
@@ -284,24 +274,33 @@ function TranscriptSnapshot() {
           <SectionHeading
             eyebrow="Coursework · snapshot"
             title="Thirty-one entries on the ledger"
-            lede="Three levels of the IITM BS programme — foundation, a double diploma, and degree-level specialisation. The full transcript is filterable, searchable and charted."
+            lede="Three levels of the IITM BS programme — foundation, a double diploma, and degree-level specialisation. The full list is filterable and searchable."
           />
         </Reveal>
 
         <div className="mt-12 grid gap-6 lg:grid-cols-[1fr_1.35fr]">
           <Reveal className="sheet p-6">
-            <p className="label text-ink-faint">Grade distribution</p>
+            <p className="label text-ink-faint">By domain</p>
             <p className="mt-2 text-[0.92rem] text-ink-soft">
-              IITM grades run S, A, B, C, D, E — worth 10, 9, 8, 7, 6 and 4
-              points.
+              Where the coursework sits, from programming through to
+              professional practice.
             </p>
-            <GradeDistribution counts={counts} className="mt-6" />
+            <ul className="mt-6 space-y-3">
+              {domains.map((d) => (
+                <li key={d} className="flex items-center justify-between gap-4">
+                  <Chip className={domainStyle[d]}>{d}</Chip>
+                  <span className="font-mono text-[0.78rem] text-ink-soft">
+                    {courses.filter((c) => c.domain === d).length}
+                  </span>
+                </li>
+              ))}
+            </ul>
           </Reveal>
 
           <div className="grid gap-4 sm:grid-cols-3">
             {levels.map((level, i) => {
               const inLevel = courses.filter((c) => c.level === level)
-              const levelMean = meanGradePoint(inLevel)
+              const levelProjects = inLevel.filter((c) => c.isProject).length
               return (
                 <Reveal
                   key={level}
@@ -321,8 +320,8 @@ function TranscriptSnapshot() {
                     <span className="font-mono text-[0.72rem] text-ink-faint">
                       {inLevel.length} entries
                     </span>
-                    <span className="display text-[1.35rem] font-semibold text-teal">
-                      {levelMean ? levelMean.toFixed(2) : '—'}
+                    <span className="font-mono text-[0.72rem] text-plum">
+                      {levelProjects} {levelProjects === 1 ? 'project' : 'projects'}
                     </span>
                   </div>
                 </Reveal>
@@ -338,7 +337,7 @@ function TranscriptSnapshot() {
                     Explore every course
                   </span>
                   <span className="mt-1 block text-[0.9rem] text-ink-soft">
-                    Filter by level, domain and grade · search by name
+                    Filter by level and domain · search by name
                   </span>
                 </span>
                 <span className="grid size-11 shrink-0 place-items-center rounded-full bg-ink text-paper transition-transform duration-200 group-hover:rotate-45">
