@@ -5,7 +5,7 @@ product description and local setup.
 
 ## What this is
 
-A personal portfolio and interactive transcript for Mrityunjay Chakraborty,
+A personal portfolio and coursework explorer for Mrityunjay Chakraborty,
 built on TanStack Start and deployed to Netlify. It is complete and fully
 built — there is no PLAN.md and no staged roadmap.
 
@@ -36,8 +36,7 @@ built — there is no PLAN.md and no staged roadmap.
 │       └── samvidhan-sadan.jpg       # 16:9 wide crop, used in the speaking section
 ├── src
 │   ├── components
-│   │   ├── Bits.tsx          # Chip, Eyebrow, SectionHeading — the shared small parts
-│   │   ├── Grades.tsx        # GradeChip, GradeDistribution chart, StatTile
+│   │   ├── Bits.tsx          # Chip, Eyebrow, SectionHeading, StatTile — the shared small parts
 │   │   ├── Reveal.tsx        # IntersectionObserver scroll-reveal wrapper
 │   │   ├── SiteNav.tsx       # SiteNav (sticky header + mobile drawer) and SiteFooter
 │   │   └── ui/               # Leftover template primitives; currently unused
@@ -52,7 +51,7 @@ built — there is no PLAN.md and no staged roadmap.
 │   ├── routes
 │   │   ├── __root.tsx        # Shell: fonts, meta, grain overlay, nav, footer
 │   │   ├── index.tsx         # Home
-│   │   ├── coursework.tsx    # Interactive transcript explorer
+│   │   ├── coursework.tsx    # Interactive coursework explorer
 │   │   ├── projects.tsx      # Project gallery
 │   │   ├── journey.tsx       # Roles, honours, speaking
 │   │   └── contact.tsx       # Netlify Forms contact page
@@ -68,9 +67,8 @@ There is **no CMS and no database** — this is a static personal site, and all
 content is typed TypeScript. Content Collections was removed from the template
 because the transcript is structured records, not markdown prose.
 
-- `src/data/courses.ts` — the 31 transcript entries, plus the grade scale
-  (`gradePoints`, `gradeMeaning`), the grade and domain colour maps, and the
-  `gradeCounts` / `meanGradePoint` helpers every stat on the site derives from.
+- `src/data/courses.ts` — the 31 course entries, the level blurbs and the
+  domain colour map. Entries deliberately carry **no grade data**.
 - `src/data/projects.ts` — the ten projects. `featured: true` puts a project in
   the home page zig-zag grid; `since` is the sort key.
 - `src/data/journey.ts` — `orgs` (each with nested `roles`) and `honors`, both
@@ -102,11 +100,9 @@ All motion is disabled under `prefers-reduced-motion`. Keep it that way.
 
 ## Non-obvious decisions
 
-- **The mean grade point is deliberately not called a CGPA.** It is an
-  unweighted average of IITM grade points over the current selection, and the
-  `/coursework` page says so in plain text. Do not relabel it.
-- **Grade colours are an ordinal ramp, not a pass/fail signal.** Teal at the top
-  through to wine at the base, defined once in `gradeStyle`.
+- **Grades are never published.** The site lists coursework only. Do not add
+  grades, grade points, grade filters, distributions or averages back — not even
+  in `src/data/`, since anything imported there ships in the client bundle.
 - **`Reveal` renders visible on the server** and only opts into the hidden
   state after mount, so readers without JS still see all content.
 - **Images always go through `img()`** from `src/lib/img.ts` so pages never ship
