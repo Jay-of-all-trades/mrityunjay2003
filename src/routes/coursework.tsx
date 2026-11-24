@@ -5,7 +5,6 @@ import {
   courses,
   domainStyle,
   domains,
-  gradeCounts,
   gradeMeaning,
   gradeOrder,
   gradePoints,
@@ -18,7 +17,7 @@ import {
   type Grade,
   type Level,
 } from '@/data/courses'
-import { GradeChip, GradeDistribution } from '@/components/Grades'
+import { GradeChip } from '@/components/Grades'
 import { Chip, Eyebrow } from '@/components/Bits'
 import { cn } from '@/lib/utils'
 
@@ -86,7 +85,6 @@ function Coursework() {
     })
   }, [level, activeDomains, activeGrades, projectsOnly, query, sort])
 
-  const counts = gradeCounts(filtered)
   const mean = meanGradePoint(filtered)
   const top = filtered.filter((c) => c.grade === 'S' || c.grade === 'A').length
   const projectCount = filtered.filter((c) => c.isProject).length
@@ -268,7 +266,7 @@ function Coursework() {
         </section>
 
         {/* ----------------------------------------------------- summary */}
-        <section className="mt-6 grid gap-5 lg:grid-cols-[1fr_1fr]">
+        <section className="mt-6">
           <div className="sheet p-5">
             <p className="label text-ink-faint">Selection</p>
             <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-4">
@@ -292,16 +290,6 @@ function Coursework() {
             </p>
           </div>
 
-          <div className="sheet p-5">
-            <p className="label text-ink-faint">Grade distribution</p>
-            {filtered.some((c) => c.grade) ? (
-              <GradeDistribution counts={counts} className="mt-4" />
-            ) : (
-              <p className="mt-6 text-[0.92rem] text-ink-faint">
-                No graded entries in this selection.
-              </p>
-            )}
-          </div>
         </section>
 
         {/* -------------------------------------------------- the ledger */}

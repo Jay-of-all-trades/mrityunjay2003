@@ -5,7 +5,7 @@ Science and Applications, IIT Madras, roll 21F3001385).
 
 The centrepiece is an **interactive transcript**: all 31 IITM BS entries — taught
 courses and graded build projects — filterable by level, domain and grade,
-searchable, sortable, with a grade-distribution chart and summary statistics that
+searchable, sortable, with summary statistics that
 recompute live from the current selection.
 
 ## Screens

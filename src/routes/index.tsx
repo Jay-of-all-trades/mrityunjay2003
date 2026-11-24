@@ -3,14 +3,13 @@ import { ArrowUpRight, Quote, Sparkles } from 'lucide-react'
 import { profile } from '@/data/profile'
 import {
   courses,
-  gradeCounts,
   levelBlurb,
   levels,
   meanGradePoint,
 } from '@/data/courses'
 import { projects } from '@/data/projects'
 import { honors, orgs } from '@/data/journey'
-import { GradeDistribution, StatTile } from '@/components/Grades'
+import { StatTile } from '@/components/Grades'
 import { Chip, Eyebrow, SectionHeading } from '@/components/Bits'
 import { Reveal } from '@/components/Reveal'
 import { img } from '@/lib/img'
@@ -20,7 +19,6 @@ export const Route = createFileRoute('/')({
   component: Home,
 })
 
-const counts = gradeCounts(courses)
 const graded = courses.filter((c) => c.grade)
 const topGrades = graded.filter((c) => c.grade === 'S' || c.grade === 'A').length
 const mean = meanGradePoint(courses)
@@ -284,20 +282,11 @@ function TranscriptSnapshot() {
           <SectionHeading
             eyebrow="Coursework · snapshot"
             title="Thirty-one entries on the ledger"
-            lede="Three levels of the IITM BS programme — foundation, a double diploma, and degree-level specialisation. The full transcript is filterable, searchable and charted."
+            lede="Three levels of the IITM BS programme — foundation, a double diploma, and degree-level specialisation. The full transcript is filterable and searchable."
           />
         </Reveal>
 
-        <div className="mt-12 grid gap-6 lg:grid-cols-[1fr_1.35fr]">
-          <Reveal className="sheet p-6">
-            <p className="label text-ink-faint">Grade distribution</p>
-            <p className="mt-2 text-[0.92rem] text-ink-soft">
-              IITM grades run S, A, B, C, D, E — worth 10, 9, 8, 7, 6 and 4
-              points.
-            </p>
-            <GradeDistribution counts={counts} className="mt-6" />
-          </Reveal>
-
+        <div className="mt-12">
           <div className="grid gap-4 sm:grid-cols-3">
             {levels.map((level, i) => {
               const inLevel = courses.filter((c) => c.level === level)

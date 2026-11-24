@@ -37,7 +37,7 @@ built — there is no PLAN.md and no staged roadmap.
 ├── src
 │   ├── components
 │   │   ├── Bits.tsx          # Chip, Eyebrow, SectionHeading — the shared small parts
-│   │   ├── Grades.tsx        # GradeChip, GradeDistribution chart, StatTile
+│   │   ├── Grades.tsx        # GradeChip, StatTile
 │   │   ├── Reveal.tsx        # IntersectionObserver scroll-reveal wrapper
 │   │   ├── SiteNav.tsx       # SiteNav (sticky header + mobile drawer) and SiteFooter
 │   │   └── ui/               # Leftover template primitives; currently unused
