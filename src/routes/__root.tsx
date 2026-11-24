@@ -6,7 +6,7 @@ import '../styles.css'
 
 const siteName = `${profile.name} — Data Science at IIT Madras`
 const siteDescription =
-  'Portfolio and interactive transcript of Mrityunjay Chakraborty: BS in Data Science and Applications at IIT Madras, backend builder, co-founder of the RaSoR research society.'
+  'Portfolio and coursework of Mrityunjay Chakraborty: BS in Data Science and Applications at IIT Madras, backend builder, co-founder of the RaSoR research society.'
 
 export const Route = createRootRoute({
   head: () => ({
